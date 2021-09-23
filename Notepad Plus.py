@@ -1,8 +1,8 @@
-import tkinter as tk                # python 3
+import tkinter as tk
+from tkinter import *
 from tkinter import font as tkfont
 
 LARGE_FONT = ("Verdana", 12)
-
 
 class SampleApp(tk.Tk):
 
@@ -18,6 +18,22 @@ class SampleApp(tk.Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
+
+
+        self.title('Notepad Plus')
+        self.geometry("600x400")
+
+        windowWidth = self.winfo_reqwidth()
+        windowHeight = self.winfo_reqheight()
+        print("Width",windowWidth,"Height",windowHeight)
+
+        # Gets both half the screen width/height and window width/height
+        positionRight = int(self.winfo_screenwidth()/2 - windowWidth/2)
+        positionDown = int(self.winfo_screenheight()/2 - windowHeight/2)
+
+        # Positions the window in the center of the page.
+        self.geometry("+{}+{}".format(positionRight, positionDown))
+
 
         self.frames = {}
         for F in (StartPage, PageOne):
@@ -36,7 +52,6 @@ class SampleApp(tk.Tk):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
         frame.tkraise()
-
 
 class StartPage(tk.Frame):
 
@@ -67,3 +82,5 @@ class PageOne(tk.Frame):
 if __name__ == "__main__":
     app = SampleApp()
     app.mainloop()
+
+
